@@ -70,6 +70,41 @@ a{
 a:hover{
   color:#ff8000;
 }
+
+ul {
+  padding: 0;
+  margin: 0;
+  /* to get rid of the bullets points */
+  list-style-type: none;
+}
+li {
+  /* to make a space betweeen them */
+  margin: 1rem;
+}
+
+button {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border : 0.1rem #a4a4a4 solid;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: lightgray;
+  cursor: pointer;
+}
+button:hover {
+  border : 0.1rem #404040 solid;
+}
+ button.primary {
+   /* set primary color to gold */
+   background-color: #f0c040;
+ }
+
+ button.block {
+   width: 100%;
+ }
+
 /*Header*/
 header a {
   color: #ffffff;
@@ -90,12 +125,23 @@ a.brand {
 .row.center {
   justify-content: center;
 }
-
+.row.top{
+  align-items: flex-start;
+}
+.col-1{
+  flex: 1 1 25rem;
+}
+.col-2{
+  flex: 2 1 50rem;
+}
 img {
   border-radius: 0.5rem;
 }
 img.medium {
   max-width: 25rem;
+  width: 100%;
+}
+img.large{
   width: 100%;
 }
 
@@ -122,4 +168,12 @@ img.medium {
 
 .rating span:last-child{
   color: black;
+}
+
+/* creating Alerts */
+.success{
+  color:green
+}
+.error{
+  color: red;
 }
