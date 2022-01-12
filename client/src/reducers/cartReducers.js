@@ -1,6 +1,6 @@
 /* updating store based on actions performed */
 
-import {CART_ADD_ITEM} from '../constants/cartConstant';
+import {CART_ADD_ITEM, CART_REMOVE_ITEM} from '../constants/cartConstant';
 
 export const cartReducer = (state= {cartItems: []}, action) => {
     switch (action.type){
@@ -22,6 +22,14 @@ export const cartReducer = (state= {cartItems: []}, action) => {
                 // ...state.cartItems concatenate cart items with the new item
                 return {...state, cartItems: [...state.cartItems, item]} ;
             }
+        case CART_REMOVE_ITEM:
+            // to persist other properties as it is. (...state)
+            return {...state, cartItems: state.cartItems.filter((x) => x.product !== action.payload),
+                // filter accept a  function & inside this function we return true or false
+                // so this function is filtering out the product that id is equal to action.payload
+                // so cartReducer will update the redux store & delete product from cartItems.
+                
+            };
         default:
             return state;
     }

@@ -2,7 +2,7 @@
  what to do with action-types
 */
 import Axios from 'axios';
-import {CART_ADD_ITEM} from '../constants/cartConstant';
+import {CART_ADD_ITEM, CART_REMOVE_ITEM} from '../constants/cartConstant';
 
 
 /* first creating add to cart action*/
@@ -26,3 +26,8 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
     // add cart items to local storage so even we refresh the page items persists in cart (prevent to empty)
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 }
+
+export const removeFromCart = (productId) => (dispatch, getState) => {
+    dispatch({ type: CART_REMOVE_ITEM, payload: productId });
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  };
