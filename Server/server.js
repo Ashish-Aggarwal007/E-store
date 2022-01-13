@@ -6,7 +6,7 @@ import userRouter from './routers/userRouter.js';
 
 const app = express();
 
-mongoose.connect("mongodb+srv://admin:1230@cluster0.86onw.mongodb.net/shop?retryWrites=true&w=majority", {
+mongoose.connect(`process.env.MongodbURL`, {
     // to get rid of deprecated warnings
     useNewUrlParser:true,
     useUnifiedTopology: true,
