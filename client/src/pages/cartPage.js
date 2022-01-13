@@ -25,7 +25,7 @@ const CartPage = (props) => {
     
       const checkoutHandler = () => {
           // after signingIn user will redirected to shipping page
-        props.history.push('/signin?redirect=shipping');
+        props.history.push('/signin?redirect=/shipping');
       };
     return (
         <>

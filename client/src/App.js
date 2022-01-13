@@ -6,6 +6,7 @@ import registerPage from './pages/registerPage';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/cartPage';
 import { signout } from './actions/userActions';
+import ShippingAddressPage from "./pages/ShippingAddressPage";
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
         <Route path = "/product/:id" component={ProductPage} />
         <Route path = "/signin" component={signinPage} />
         <Route path = "/register" component={registerPage} />
+        <Route path = "/shipping" component= {ShippingAddressPage} />
         <Route path = "/" component={Homepage} exact />
          
       </main>
