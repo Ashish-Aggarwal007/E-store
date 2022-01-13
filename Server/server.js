@@ -1,12 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import data from './data.js';
+// import data from './data.js';
+import productRouter from './routers/productRouter.js';
 import userRouter from './routers/userRouter.js';
 
 
 const app = express();
 
-mongoose.connect(`process.env.MongodbURL`, {
+mongoose.connect("mongodb+srv://admin:1230@cluster0.86onw.mongodb.net/shop?retryWrites=true&w=majority", {
     // to get rid of deprecated warnings
     useNewUrlParser:true,
     useUnifiedTopology: true,
@@ -14,7 +15,7 @@ mongoose.connect(`process.env.MongodbURL`, {
 .catch((err) => {
     console.log(err);
 });
-
+/* 
 app.get('/api/products/:id',(req, res) => {
     const product = data.products.find(x => x._id === req.params.id);
     if(product){
@@ -24,13 +25,13 @@ app.get('/api/products/:id',(req, res) => {
         res.status(404).send({message : 'Product not found'});
     }
 });
-
+ static data
 app.get('/api/products',(req, res) => {
     res.send(data.products);
-});
+}); */
 
 app.use('/api/users', userRouter);
-
+app.use('/api/products', productRouter);
 
 app.get('/', (req, res) => {
     res.send('Server is ready');
