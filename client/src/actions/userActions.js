@@ -52,5 +52,6 @@ USER_REGISTER_SUCCESS, USER_REGISTER_FAIL} from '../constants/userContants';
   export const signout = () => (dispatch) => {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('cartItems');
+    localStorage.removeItem('shippingAddress');
     dispatch({ type: USER_SIGNOUT });
   };

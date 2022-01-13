@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
 import Homepage from './pages/Homepage';
+import PaymentMethodPage from './pages/PaymentMethodPage';
+import ProductPage from './pages/ProductPage';
 import signinPage from './pages/singinPage';
 import registerPage from './pages/registerPage';
-import ProductPage from './pages/ProductPage';
 import CartPage from './pages/cartPage';
 import { signout } from './actions/userActions';
 import ShippingAddressPage from "./pages/ShippingAddressPage";
-
+import PlaceOrderPage from './pages/PlaceOrderPage';
 
 function App() {
  
@@ -62,6 +63,8 @@ function App() {
         <Route path = "/signin" component={signinPage} />
         <Route path = "/register" component={registerPage} />
         <Route path = "/shipping" component= {ShippingAddressPage} />
+        <Route path = "/payment" component={PaymentMethodPage} />
+        <Route path = "/placeorder" component={PlaceOrderPage} />
         <Route path = "/" component={Homepage} exact />
          
       </main>
