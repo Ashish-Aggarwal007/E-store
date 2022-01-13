@@ -1,8 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
 import Homepage from './pages/Homepage';
+import signinPage from './pages/singinPage';
+import registerPage from './pages/registerPage';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/cartPage';
+import { signout } from './actions/userActions';
 
 
 function App() {
@@ -13,6 +16,16 @@ function App() {
   // get cartItems from cart object
   const {cartItems} = cart;
 
+  /* to make the signed-named instead if signin after */
+  /* we need to get info first so 
+  access the usersignin info from redux */
+  const userSignin = useSelector(state => state.userSignin );
+  const {userInfo} = userSignin;
+
+  const dispatch = useDispatch();
+  const signoutHandler = () => {
+    dispatch(signout());
+  }
   return (
     <BrowserRouter>
     <div className = "grid-container">
@@ -26,12 +39,27 @@ function App() {
               className='badges'>{cartItems.length}</span>
               )}
               </Link>
+              {userInfo ? (
+              <div className="dropdown">
+                <Link to="#">{userInfo.name} <i className="fa fa-caret-down"></i>{' '}
+                </Link> 
+                   <ul className="dropdown-content">
+                  <li>
+                    <Link to="#signout" onClick={signoutHandler}>
+                      Sign Out  </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
               <Link to="/signin">Sign In</Link>
+            )}              
           </div>
       </header>
       <main>
         <Route path = "/cart/:id?" component={CartPage} />
         <Route path = "/product/:id" component={ProductPage} />
+        <Route path = "/signin" component={signinPage} />
+        <Route path = "/register" component={registerPage} />
         <Route path = "/" component={Homepage} exact />
          
       </main>

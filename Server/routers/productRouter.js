@@ -6,8 +6,7 @@ import Product from '../models/productModel.js';
 const productRouter = express.Router();
 
 // sending list products to client api
-productRouter.get(
-  '/',
+productRouter.get('/',
   expressAsyncHandler(async (req, res) => {
     const products = await Product.find({});
     res.send(products);
@@ -25,8 +24,7 @@ productRouter.get(
 
 // find the product by id api
 // returning details of the products to frontend
-productRouter.get(
-  '/:id',
+productRouter.get('/:id',
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
