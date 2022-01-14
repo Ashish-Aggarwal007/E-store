@@ -1,3 +1,4 @@
+// middlewares
 import jwt from 'jsonwebtoken';
 
 export const generateToken = (user) => {
@@ -17,6 +18,7 @@ export const generateToken = (user) => {
   );
 }; 
 
+// accepts request only from the authenticated or signin user
 export const isAuth = (req, res, next) => {
   const authorization = req.headers.authorization;
   if (authorization) {
@@ -35,5 +37,14 @@ export const isAuth = (req, res, next) => {
     );
   } else {
     res.status(401).send({ message: 'No Token' });
+  }
+};
+
+export const isAdmin = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    // if isAdmin pass to next middleware 
+    next();
+  } else {
+    res.status(401).send({ message: 'Invalid Admin Token' });
   }
 };

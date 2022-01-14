@@ -11,6 +11,11 @@ import ShippingAddressPage from "./pages/ShippingAddressPage";
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
 import OrderHistoryPage from './pages/OrderHistryPage';
+import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
+import ProfilePage from './pages/ProfilePage';
+import ProductListPage from './pages/ProductListPage';
+import ProductEditPage from './pages/ProductEditPage';
 
 function App() {
  
@@ -49,7 +54,10 @@ function App() {
                 </Link> 
                    <ul className="dropdown-content">
                    <li>
-                    <Link to="/orderhistory">Order History</Link>
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                   <li>
+                    <Link to="/orderhistory">History</Link>
                   </li>
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>
@@ -59,19 +67,43 @@ function App() {
               </div>
             ) : (
               <Link to="/signin">Sign In</Link>
-            )}              
+            )} 
+             {userInfo && userInfo.isAdmin && (
+              <div className="dropdown">
+                <Link to="#admin">
+                  Admin <i className="fa fa-caret-down"></i>
+                </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </li>
+                  <li>
+                    <Link to="/productlist">Products</Link>
+                  </li>
+                  <li>
+                    <Link to="/orderlist">Orders</Link>
+                  </li>
+                  <li>
+                    <Link to="/userlist">Users</Link>
+                  </li>
+                </ul>
+              </div>
+            )}           
           </div>
       </header>
       <main>
         <Route path = "/cart/:id?" component={CartPage} />
-        <Route path = "/product/:id" component={ProductPage} />
+        <Route path = "/product/:id" component={ProductPage} exact/>
+        <Route path="/product/:id/edit" component={ProductEditPage} exact />
         <Route path = "/signin" component={signinPage} />
         <Route path = "/register" component={registerPage} />
         <Route path = "/shipping" component= {ShippingAddressPage} />
         <Route path = "/payment" component={PaymentMethodPage} />
         <Route path = "/placeorder" component={PlaceOrderPage} />
         <Route path= "/order/:id"  component ={OrderPage} />
-        <Route path="/orderhistory" component={OrderHistoryPage}></Route>
+        <Route path="/orderhistory" component={OrderHistoryPage} />
+        <PrivateRoute path="/profile" component={ProfilePage} />
+        <AdminRoute path = "/productlist" component={ProductListPage} />
         <Route path = "/" component={Homepage} exact />
          
       </main>
