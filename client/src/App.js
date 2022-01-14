@@ -10,6 +10,7 @@ import { signout } from './actions/userActions';
 import ShippingAddressPage from "./pages/ShippingAddressPage";
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
+import OrderHistoryPage from './pages/OrderHistryPage';
 
 function App() {
  
@@ -47,6 +48,9 @@ function App() {
                 <Link to="#">{userInfo.name} <i className="fa fa-caret-down"></i>{' '}
                 </Link> 
                    <ul className="dropdown-content">
+                   <li>
+                    <Link to="/orderhistory">Order History</Link>
+                  </li>
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out  </Link>
@@ -67,6 +71,7 @@ function App() {
         <Route path = "/payment" component={PaymentMethodPage} />
         <Route path = "/placeorder" component={PlaceOrderPage} />
         <Route path= "/order/:id"  component ={OrderPage} />
+        <Route path="/orderhistory" component={OrderHistoryPage}></Route>
         <Route path = "/" component={Homepage} exact />
          
       </main>
