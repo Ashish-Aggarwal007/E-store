@@ -16,6 +16,7 @@ import AdminRoute from './components/AdminRoute';
 import ProfilePage from './pages/ProfilePage';
 import ProductListPage from './pages/ProductListPage';
 import ProductEditPage from './pages/ProductEditPage';
+import OrderListPage from './pages/OrderListPage';
 
 function App() {
  
@@ -104,6 +105,7 @@ function App() {
         <Route path="/orderhistory" component={OrderHistoryPage} />
         <PrivateRoute path="/profile" component={ProfilePage} />
         <AdminRoute path = "/productlist" component={ProductListPage} />
+        <AdminRoute path="/orderlist" component={OrderListPage} />
         <Route path = "/" component={Homepage} exact />
          
       </main>

@@ -3,8 +3,8 @@ import Axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { ORDER_PAY_RESET } from '../constants/orderConstants';
-import { detailsOrder, payOrder } from '../actions/orderActions';
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constants/orderConstants';
+import { detailsOrder, payOrder, deliverOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 
@@ -15,8 +15,20 @@ export default function OrderPage(props) {
   const orderDetails = useSelector((state) => state.orderDetails);
   // order details contains loading, error and order
   const { order, loading, error } = orderDetails;
+
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay,error: errorPay, success: successPay, } = orderPay;
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+
+  const {
+    loading: loadingDeliver,
+    error: errorDeliver,
+    success: successDeliver,
+  } = orderDeliver;
+
   const dispatch = useDispatch();
   useEffect(() => {
        /* it send a request to Server to get the clientID*/
@@ -32,7 +44,8 @@ export default function OrderPage(props) {
       };
       document.body.appendChild(script);
     };
-    if (!order || successPay || (order && order._id !== orderId)) {
+    if (!order || successPay || successDeliver ||(order && order._id !== orderId)) {
+      dispatch({ type: ORDER_DELIVER_RESET });
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(detailsOrder(orderId));
     } else {
@@ -45,12 +58,16 @@ export default function OrderPage(props) {
         }
       }
     }
-  }, [dispatch, order, orderId, sdkReady, successPay]);
+  }, [dispatch, order, orderId, sdkReady, successPay, successDeliver ]);
 
 // payment result is the result of your payment on paypal
     const successPaymentHandler = (paymentResult) => {
       dispatch(payOrder(order, paymentResult));
-  }
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order._id));
+  };
 
   // return part start form checking loading means if loading ordered from back
   return loading ? (
@@ -182,6 +199,21 @@ export default function OrderPage(props) {
                     ></PayPalButton>
                   </>
                   )}
+                </li>
+              )}
+              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                <li>
+                  {loadingDeliver && <LoadingBox></LoadingBox>}
+                  {errorDeliver && (
+                    <MessageBox variant="danger">{errorDeliver}</MessageBox>
+                  )}
+                  <button
+                    type="button"
+                    className="primary block"
+                    onClick={deliverHandler}
+                  >
+                    Deliver Order
+                  </button>
                 </li>
               )}
             </ul>
