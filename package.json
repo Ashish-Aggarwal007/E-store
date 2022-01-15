@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "cd client && npm install && npm run build",
     "start": "nodemon --watch Server  --exec node --experimental-modules Server/server.js"
   },
   "repository": {
@@ -31,5 +32,6 @@
     "eslint": "^8.6.0",
     "eslint-plugin-react": "^7.28.0",
     "nodemon": "^2.0.15"
-  }
+  },
+  "engines": {"node":"16.13.1", "npm": "8.3.0"}
 }
